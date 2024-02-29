@@ -10,40 +10,38 @@ import com.example.expensetracker.database.Expense
 import com.example.expensetracker.database.ExpenseDao
 import com.example.expensetracker.database.ExpenseDatabase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import java.util.Date
+import java.util.UUID
 
 
 class ExpenseListViewModel(application: Application) : AndroidViewModel(application) {
 
     // Assuming your Room database is named AppDatabase and it has a method to build the database instance.
     private val db = Room.databaseBuilder(application, ExpenseDatabase::class.java, "expenses").build()
-    private val expenseDao = db.ExpenseDao()
+    private val expenseDao: ExpenseDao = db.expenseDao()
 
-    // LiveData list of expenses
-    val allExpenses: LiveData<List<Expense>> = expenseDao.getAllExpenses().asLiveData()
+    private val _expensesByCategory = MutableLiveData<List<Expense>>()
+    val expensesByCategory: LiveData<List<Expense>> = _expensesByCategory
 
-    // Functions to fetch data by category
-    fun getExpensesByCategory(category: String): LiveData<List<Expense>> {
-        return expenseDao.getExpensesByCategory(category).asLiveData()
+
+    val allExpenses: Flow<List<Expense>> = expenseDao.getExpensesSortedByDate()
+
+    fun fetchExpensesByCategory(category: String) = viewModelScope.launch {
+        val expenses = expenseDao.getExpensesByCategory(category)
+        _expensesByCategory.value = expenses
     }
 
-    // Function to fetch all expenses
-    fun fetchAllExpenses(): LiveData<List<Expense>> {
-        return allExpenses // Already initialized as LiveData
-    }
 
-    // Function to add an expense
     fun addExpense(expense: Expense) = viewModelScope.launch {
-        expenseDao.insertExpense(expense)
+        expenseDao.addExpense(expense)
     }
 
-    // Function to update an expense
-    fun updateExpense(expense: Expense) = viewModelScope.launch {
-        expenseDao.updateExpense(expense)
+    fun updateExpense(id: UUID, newAmount: Double, newCategory: String, newDate: Date) = viewModelScope.launch {
+        expenseDao.updateExpenseDetails(id, newAmount, newCategory, newDate)
     }
 
-    // Function to delete all expenses
     fun deleteAllExpenses() = viewModelScope.launch {
         expenseDao.deleteAllExpenses()
     }

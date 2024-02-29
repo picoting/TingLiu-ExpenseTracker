@@ -9,5 +9,5 @@ import android.content.Context
 @Database(entities = [Expense::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class ExpenseDatabase : RoomDatabase() {
-    abstract fun expenseDAO(): ExpenseDao
+    abstract fun expenseDao(): ExpenseDao
 }

@@ -9,7 +9,7 @@ import com.example.expensetracker.database.Expense
 interface ExpenseDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertOrUpdateExpense(expense: Expense): Long
+    suspend fun addExpense(expense: Expense): Long
 
     @Query("SELECT COUNT(*) FROM expenses")
     suspend fun getExpenseCount(): Int

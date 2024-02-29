@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".ExpenseListFragment">
 
+    <Button
+        android:id="@+id/delete_expense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="664dp"
+        android:text="Delete Expense"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/update_expense_text"
