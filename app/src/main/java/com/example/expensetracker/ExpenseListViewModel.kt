@@ -13,6 +13,7 @@ import com.example.expensetracker.database.ExpenseDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.Date
 import java.util.UUID
 
@@ -50,6 +51,13 @@ class ExpenseListViewModel(application: Application) : AndroidViewModel(applicat
             }
         } catch (e: Exception) {
             Log.e("ExpenseListViewModel", "Exception adding expense", e)
+        }
+
+        //expenseDao.addExpense(expense)
+        // Now collect the latest list of expenses and post the value to the LiveData
+        val expensesList = expenseDao.getExpensesSortedByDate().first()
+        withContext(Dispatchers.Main) {
+            _expenseList.postValue(listOf(expensesList))
         }
     }
 
