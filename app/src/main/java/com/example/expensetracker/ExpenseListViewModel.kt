@@ -1,6 +1,7 @@
 package com.example.expensetracker
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -38,8 +39,18 @@ class ExpenseListViewModel(application: Application) : AndroidViewModel(applicat
     }
 
 
-    fun addExpense(expense: Expense) = viewModelScope.launch {
-        expenseDao.addExpense(expense)
+    fun addExpense(expense: Expense) = viewModelScope.launch(Dispatchers.IO) { // <-- Dispatchers.IO added here
+        try {
+            Log.d("ExpenseListViewModel", "addExpense called with: $expense")
+            val newRowId = expenseDao.addExpense(expense)
+            if (newRowId > -1) {
+                Log.d("AddExpense", "Expense added successfully, ID: $newRowId")
+            } else {
+                Log.d("AddExpense", "Failed to add expense")
+            }
+        } catch (e: Exception) {
+            Log.e("ExpenseListViewModel", "Exception adding expense", e)
+        }
     }
 
     fun updateExpense(expense: Expense) = viewModelScope.launch(Dispatchers.IO) {
