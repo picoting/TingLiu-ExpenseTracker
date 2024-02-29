@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">ExpenseTracker</string>
+
+
+    <string-array name="sort_categories">
+        <item>Sort By Date (Ascending)</item>
+        <item>Sort By Date (Descending)</item>
+        <item>Filter By Category</item>
+    </string-array>
+
+    <string-array name="expense_categories">
+        <item>Food/Groceries</item>
+        <item>Housing</item>
+        <item>Utilities</item>
+        <item>Transportation</item>
+        <item>Clothing</item>
+        <item>Misc.</item>
+    </string-array>
 </resources>
