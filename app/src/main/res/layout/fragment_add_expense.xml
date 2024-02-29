@@ -6,9 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".ExpenseListFragment">
 
-
     <TextView
         android:id="@+id/set_expense_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Enter Expense Amount:"/>
+
+    <EditText
+        android:id="@+id/set_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:hint="expense title"/>
+
+
+    <TextView
+        android:id="@+id/set_amount_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"

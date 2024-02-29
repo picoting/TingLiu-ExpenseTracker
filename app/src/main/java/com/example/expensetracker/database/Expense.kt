@@ -6,7 +6,7 @@ import java.util.*
 
 @Entity(tableName="expenses")
 data class Expense(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey val id: UUID,
     val title: String,
     val date: Date,
     val amount: Double,
