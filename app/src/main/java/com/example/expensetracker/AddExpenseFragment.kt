@@ -32,22 +32,19 @@ class AddExpenseFragment : Fragment() {
             // Initialize the spinner with categories using an ArrayAdapter
 
             goBack.setOnClickListener {
-                // Collect the input data from the user
                 val titleText = setTitle.text.toString()
                 val amountText = setExpense.text.toString()
                 val amount = amountText.toDoubleOrNull()
                 val category = spinnerSetCategory.selectedItem.toString()
 
-                // You should add input validation here before attempting to save the expense
+                //add input validation here
 
                 if (amount != null) {
                     val newExpense = Expense(UUID.randomUUID(), titleText, Date(), amount, category)
                     expenseListViewModel.addExpense(newExpense)
-                    // Optionally navigate back or show a success message
                 } else {
-                    // Show an error message to the user
+                    //error?
                 }
-                // Handle the go back action, you might want to navigate back to the list fragment
                 parentFragmentManager.popBackStack()
             }
 

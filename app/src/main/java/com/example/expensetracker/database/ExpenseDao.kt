@@ -15,7 +15,7 @@ interface ExpenseDao {
     suspend fun getExpenseCount(): Int
 
     @Query("SELECT * FROM expenses ORDER BY date DESC")
-    fun getExpensesSortedByDate(descending: Boolean = true): Flow<List<Expense>>
+    suspend fun getExpensesSortedByDate(): List<Expense>
 
     @Query("SELECT * FROM expenses WHERE category = :category ORDER BY date DESC")
     suspend fun getExpensesByCategory(category: String): List<Expense>

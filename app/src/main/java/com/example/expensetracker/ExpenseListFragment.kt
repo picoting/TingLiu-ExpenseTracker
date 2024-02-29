@@ -79,7 +79,20 @@ class ExpenseListFragment : Fragment() {
 
     private fun setupAddExpenseButton() {
         binding.addExpense.setOnClickListener {
-            // Navigate to AddExpenseFragment or show dialog to add expense
+            val addExpenseFragment = AddExpenseFragment()
+
+            // Use the parentFragmentManager to begin a transaction
+            parentFragmentManager.beginTransaction().apply {
+                // Replace the current fragment with the AddExpenseFragment instance
+                replace(R.id.nav_host_fragment, addExpenseFragment)
+
+                // Optionally add the transaction to the back stack
+                // This enables the user to navigate back to the previous fragment using the device's back button
+                addToBackStack(null)
+
+                // Commit the transaction
+                commit()
+            }
         }
     }
 

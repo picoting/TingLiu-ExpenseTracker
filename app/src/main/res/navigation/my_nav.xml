@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/expenseListFragment">
+    <fragment
+        android:id="@+id/addExpenseFragment"
+        android:name="com.example.expensetracker.AddExpenseFragment"
+        android:label="fragment_add_expense"
+        tools:layout="@layout/fragment_add_expense" >
+        <action
+            android:id="@+id/action_addExpenseFragment_to_expenseListFragment"
+            app:destination="@id/expenseListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editExpenseFragment"
+        android:name="com.example.expensetracker.EditExpenseFragment"
+        android:label="fragment_update_expense"
+        tools:layout="@layout/fragment_edit_expense" >
+        <argument
+            android:name="expenseId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_editExpenseFragment_to_expenseListFragment"
+            app:destination="@id/expenseListFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/expenseListFragment"
+        android:name="com.example.expensetracker.ExpenseListFragment"
+        android:label="ExpenseListFragment" >
+        <action
+            android:id="@+id/action_expenseListFragment_to_addExpenseFragment"
+            app:destination="@id/addExpenseFragment" />
+        <action
+            android:id="@+id/action_expenseListFragment_to_editExpenseFragment"
+            app:destination="@id/editExpenseFragment" />
+    </fragment>
+
+</navigation>

@@ -42,12 +42,20 @@ class ExpenseListViewModel(application: Application) : AndroidViewModel(applicat
         expenseDao.addExpense(expense)
     }
 
-    fun updateExpense(id: UUID, newAmount: Double, newCategory: String, newDate: Date) = viewModelScope.launch {
-        expenseDao.updateExpenseDetails(id, newAmount, newCategory, newDate)
+    fun updateExpense(expense: Expense) = viewModelScope.launch(Dispatchers.IO) {
+        expenseDao.updateExpense(expense)
     }
 
     fun deleteAllExpenses() = viewModelScope.launch {
         expenseDao.deleteAllExpenses()
+    }
+
+    fun getExpenseById(expenseId: UUID): LiveData<Expense> {
+        val result = MutableLiveData<Expense>()
+        viewModelScope.launch {
+            result.value = expenseDao.getExpenseById(expenseId)
+        }
+        return result
     }
 
     override fun onCleared() {
