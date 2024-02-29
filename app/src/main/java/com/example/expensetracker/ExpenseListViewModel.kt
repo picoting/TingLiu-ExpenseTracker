@@ -18,7 +18,6 @@ import java.util.UUID
 
 class ExpenseListViewModel(application: Application) : AndroidViewModel(application) {
 
-    // Assuming your Room database is named AppDatabase and it has a method to build the database instance.
     private val db = Room.databaseBuilder(application, ExpenseDatabase::class.java, "expenses").build()
     private val expenseDao: ExpenseDao = db.expenseDao()
 
@@ -26,11 +25,16 @@ class ExpenseListViewModel(application: Application) : AndroidViewModel(applicat
     val expensesByCategory: LiveData<List<Expense>> = _expensesByCategory
 
 
-    val allExpenses: Flow<List<Expense>> = expenseDao.getExpensesSortedByDate()
+    private val _expenseList = MutableLiveData<List<Expense>>()
+    val allExpenses: LiveData<List<Expense>> = _expenseList
 
     fun fetchExpensesByCategory(category: String) = viewModelScope.launch {
         val expenses = expenseDao.getExpensesByCategory(category)
         _expensesByCategory.value = expenses
+    }
+
+    fun sortExpenseByDate() = viewModelScope.launch {
+        expenseDao.getExpensesSortedByDate()
     }
 
 
